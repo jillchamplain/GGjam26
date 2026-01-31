@@ -11,6 +11,9 @@ public class ScoreManager : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    public delegate void PlayerWonGame(Player player);
+    public static event PlayerWonGame playerWonGame;
+
     private void OnEnable()
     {
         
@@ -43,6 +46,12 @@ public class ScoreManager : MonoBehaviour
 		HandleScores();
 	}
 
+    void ResetScores()
+    {
+        p1Score = 0;
+        p2Score = 0;
+        HandleScores();
+    }
 
     void HandleScores()
     {
@@ -57,14 +66,18 @@ public class ScoreManager : MonoBehaviour
 		if (p1Score >= 4 && p1Score >= p2Score + 2)
 		{
 			p1TF.text = "Win";
-			//p2  Wins
+            //p1  Wins
+            playerWonGame?.Invoke(Player.PLAYER_ONE);
+            ResetScores();
 			return;
 		}
 
 		else if (p2Score >= 4 && p2Score >= p1Score + 2)
         {
             p2TF.text = "Win";
-            //p1 Wins
+            //p2 Wins
+            playerWonGame?.Invoke(Player.PLAYER_TWO);
+            ResetScores();
             return;
         }
 
@@ -73,7 +86,7 @@ public class ScoreManager : MonoBehaviour
 			p2TF.text = "All";
 		}
 
-		if (p1Score >= 3 && p2Score >= 3) //Duece
+		if (p1Score >= 3 && p2Score >= 3) 
         {
             if (p1Score >= p2Score + 1) //Adv
             {
@@ -85,8 +98,8 @@ public class ScoreManager : MonoBehaviour
                 p2TF.text = "Adv";
                 return;
             }
-
-            p1TF.gameObject.SetActive(false);
+			//Duece
+			p1TF.gameObject.SetActive(false);
             p2TF.gameObject.SetActive(false);
             dueceTF.gameObject.SetActive(true);
         }
