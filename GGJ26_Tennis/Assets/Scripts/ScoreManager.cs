@@ -11,6 +11,9 @@ public class ScoreManager : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    public delegate void PlayerScored(Player player);
+    public static event PlayerScored playerScored;
+
     public delegate void PlayerWonGame(Player player);
     public static event PlayerWonGame playerWonGame;
 
@@ -45,6 +48,7 @@ public class ScoreManager : MonoBehaviour
                 IncreasePlayer2Score();
                 break;
         }
+        playerScored?.Invoke(player);
     }
 
     public void IncreasePlayer1Score()

@@ -1,10 +1,14 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    static Ball inst;
+    bool ballServed = false;
     [SerializeField] int numBounces;
     [SerializeField] Player curController;
+    public void setController(Player controller) {  curController = controller; }
 
     [SerializeField] Vector3 serveForce;
     [SerializeField] float servePower;
@@ -18,8 +22,7 @@ public class Ball : MonoBehaviour
 
     private void OnEnable()
     {
-        Courtside.ballHitCourt += BounceBall;
-    }
+        Courtside.ballHitCourt += BounceBall;    }
 
     private void OnDisable()
     {
@@ -27,7 +30,15 @@ public class Ball : MonoBehaviour
 	}
     private void Start()
     {
+        if (!inst)
+            inst = this;
+        else if(inst)
+        {
+           Destroy(inst.gameObject);
+            inst = this; 
+        }
         TogglePhysics(false);
+        StartCoroutine(Serve());
     }
 
     private void Update()
@@ -46,9 +57,35 @@ public class Ball : MonoBehaviour
 		numBounces++;
 		if (numBounces == 2)
 		{
-			ballBouncedTwice?.Invoke(player);  
+            if (curController != player)
+            {
+                ballBouncedTwice?.Invoke(player);
+            }
+            else if(curController == Player.PLAYER_ONE)
+            {
+                ballBouncedTwice?.Invoke(Player.PLAYER_TWO);
+                return;
+            }
+            else if(curController == Player.PLAYER_TWO)
+            {
+                ballBouncedTwice?.Invoke(Player.PLAYER_ONE);
+            }
+
 		}
 	}
+
+    void SwapBallController()
+    {
+        switch(curController)
+        {
+            case Player.PLAYER_ONE:
+                curController = Player.PLAYER_TWO;
+                break;
+            case Player.PLAYER_TWO:
+                curController = Player.PLAYER_ONE;
+                break;
+        }
+    }
 
     void ChangeBallController(Player player)
     {
@@ -63,22 +100,32 @@ public class Ball : MonoBehaviour
         rb.useGravity = ball;
     }
 
-    public void Serve()
+    IEnumerator Serve()
     {
         transform.DOJump(transform.position, servePower, 1, serveTime);
-    }
+        yield return new WaitForSeconds(serveTime);
+        if (!ballServed)
+            StartCoroutine(Serve());
+
+	}
 
     public void ServeHit()
     {
+        ballServed = true;
 		TogglePhysics(true);
 		transform.DOKill();
+        //Debug.Log("killing tweens");
         switch(curController)
         {
             case Player.PLAYER_ONE:
-				rb.AddRelativeForce(serveForce, ForceMode.Force);
+                Vector3 p1ServeForce = new Vector3(-serveForce.x, serveForce.y, serveForce.z);
+				Debug.Log("using 1 " + p1ServeForce);
+				rb.AddRelativeForce(p1ServeForce, ForceMode.Force);
 				break;
             case Player.PLAYER_TWO:
-				rb.AddRelativeForce(serveForce, ForceMode.Force);
+                Vector3 p2ServeForce = new  Vector3(serveForce.x, serveForce.y, serveForce.z);
+				rb.AddRelativeForce(p2ServeForce, ForceMode.Force);
+				Debug.Log("using " + p2ServeForce);
 				break;
                 
         }
