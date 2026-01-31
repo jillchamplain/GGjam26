@@ -16,12 +16,12 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        Ball.ballBouncedTwice += HandleScoreIncrease;
     }
 
     private void OnDisable()
     {
-        
+        Ball.ballBouncedTwice -= HandleScoreIncrease;
     }
     void Start()
     {
@@ -32,6 +32,19 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void HandleScoreIncrease(Player player)
+    {
+        switch(player)
+        {
+            case Player.PLAYER_ONE:
+                IncreasePlayer1Score();
+                break;
+            case Player.PLAYER_TWO:
+                IncreasePlayer2Score();
+                break;
+        }
     }
 
     public void IncreasePlayer1Score()
