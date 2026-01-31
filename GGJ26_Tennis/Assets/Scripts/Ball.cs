@@ -51,22 +51,17 @@ public class Ball : MonoBehaviour
 
     #region ACTIVE BALL STATE
 
-    void BounceBall(Player player)
+    void BounceBall(Player player) //
     {
-        Debug.Log("bounce");
 		numBounces++;
 		if (numBounces == 2)
 		{
-            if (curController != player)
-            {
-                ballBouncedTwice?.Invoke(player);
-            }
-            else if(curController == Player.PLAYER_ONE)
+            if(player == Player.PLAYER_ONE)
             {
                 ballBouncedTwice?.Invoke(Player.PLAYER_TWO);
                 return;
             }
-            else if(curController == Player.PLAYER_TWO)
+            if(player == Player.PLAYER_TWO)
             {
                 ballBouncedTwice?.Invoke(Player.PLAYER_ONE);
             }
@@ -119,13 +114,13 @@ public class Ball : MonoBehaviour
         {
             case Player.PLAYER_ONE:
                 Vector3 p1ServeForce = new Vector3(-serveForce.x, serveForce.y, serveForce.z);
-				Debug.Log("using 1 " + p1ServeForce);
+				//Debug.Log("using 1 " + p1ServeForce);
 				rb.AddRelativeForce(p1ServeForce, ForceMode.Force);
 				break;
             case Player.PLAYER_TWO:
                 Vector3 p2ServeForce = new  Vector3(serveForce.x, serveForce.y, serveForce.z);
 				rb.AddRelativeForce(p2ServeForce, ForceMode.Force);
-				Debug.Log("using " + p2ServeForce);
+				//Debug.Log("using " + p2ServeForce);
 				break;
                 
         }
