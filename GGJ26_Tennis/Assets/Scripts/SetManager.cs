@@ -5,6 +5,8 @@ public class SetManager : MonoBehaviour
     [SerializeField] int p1Wins;
     [SerializeField] int p2Wins;
 
+    [SerializeField] Player server;
+
     [SerializeField] TextMeshProUGUI p1TF;
     [SerializeField] TextMeshProUGUI p2TF;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,7 +35,14 @@ public class SetManager : MonoBehaviour
         
     }
 
-    void HandleWins()
+    void PlayerServe()
+    {
+
+    }
+
+	#region WINS
+
+	void HandleWins()
     {
         HandleWin(p1Wins, p1TF);
         HandleWin(p2Wins, p2TF);
@@ -69,4 +78,6 @@ public class SetManager : MonoBehaviour
                 break;
         }
     }
+
+    #endregion
 }
