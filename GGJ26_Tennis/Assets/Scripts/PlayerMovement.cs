@@ -78,18 +78,19 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKey(controls.upKey) && !isServing)
         {
             if(player == Player.PLAYER_ONE)
-                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+                transform.position += new Vector3(0, 0, moveSpeed * Time.deltaTime);
             else
-                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+                transform.position += new Vector3(0, 0, -moveSpeed * Time.deltaTime);
             playerUp?.Invoke(player, 'u');
         }
 
         if(Input.GetKey(controls.downKey) && !isServing)
         {
             if(player == Player.PLAYER_ONE)
-                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+                transform.position += new Vector3(0, 0, -moveSpeed * Time.deltaTime);
             else
-                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+                transform.position += new Vector3(0, 0, moveSpeed * Time.deltaTime);
+            playerUp?.Invoke(player, 'd');
         }
 
         if(Input.GetKey(controls.leftKey))
@@ -104,9 +105,9 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKey(controls.rightKey))
         {
             if(player == Player.PLAYER_ONE)
-                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+                transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
             else
-                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+                transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
             playerRight?.Invoke(player, 'r');
         }
     }
