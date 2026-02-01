@@ -54,15 +54,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (this.player == player)
         {
+            Debug.Log(this.player + " was " + isServing);
             isServing = !isServing;
         }
-        else
-            isServing = false;
     }
 
     void ResetPosition()
     {
-        Debug.Log("reset");
+        //Debug.Log("reset");
         rb.angularVelocity = Vector3.zero;
         rb.linearVelocity = Vector3.zero;
         this.transform.position = ogPos;
@@ -76,39 +75,38 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(controls.upKey) && isServing!)
+        if(Input.GetKey(controls.upKey) && !isServing)
         {
             if(player == Player.PLAYER_ONE)
-                rb.AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0, 0));
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             else
-                rb.AddForce(new Vector3(moveSpeed * Time.deltaTime, 0, 0));
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             playerUp?.Invoke(player, 'u');
         }
 
         if(Input.GetKey(controls.downKey) && !isServing)
         {
             if(player == Player.PLAYER_ONE)
-                rb.AddForce(new Vector3(moveSpeed * Time.deltaTime, 0, 0));
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             else
-                rb.AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0, 0));
-           playerDown?.Invoke(player, 'd');
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
         }
 
         if(Input.GetKey(controls.leftKey))
         {
             if(player == Player.PLAYER_ONE)
-			    rb.AddForce(new Vector3(0,0, -moveSpeed * Time.deltaTime));
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             else
-                rb.AddForce(new Vector3(0, 0, -moveSpeed * Time.deltaTime));
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             playerLeft?.Invoke(player, 'l');
         }
 
         if(Input.GetKey(controls.rightKey))
         {
             if(player == Player.PLAYER_ONE)
-			    rb.AddForce(new Vector3(0, 0, moveSpeed * Time.deltaTime));
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             else
-                rb.AddForce(new Vector3(0, 0, -moveSpeed * Time.deltaTime));
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             playerRight?.Invoke(player, 'r');
         }
     }

@@ -152,7 +152,7 @@ MonoBehaviour:
   numBounces: 0
   curController: 0
   serveForce: {x: 1000, y: 50, z: 1}
-  servePower: 4.25
+  servePower: 4.85
   serveTime: 1.25
   ballBounce:
     serializedVersion: 2

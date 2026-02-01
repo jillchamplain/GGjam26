@@ -109,6 +109,8 @@ public class Ball : MonoBehaviour
 
     public void ServeHit()
     {
+        if (isBallServed)
+            return;
         isBallServed = true;
 		TogglePhysics(true);
 		transform.DOKill();
