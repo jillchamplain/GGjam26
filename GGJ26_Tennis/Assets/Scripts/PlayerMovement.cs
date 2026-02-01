@@ -22,16 +22,16 @@ public class PlayerMovement : MonoBehaviour
         public KeyCode rightKey;
     }
 
-    public delegate void PlayerLeft(Player player);
+    public delegate void PlayerLeft(Player player, char direction);
     public static event PlayerLeft playerLeft;
 
-    public delegate void PlayerRight(Player player);
+    public delegate void PlayerRight(Player player, char direction);
     public static event PlayerRight playerRight;
 
-    public delegate void PlayerUp(Player player);
+    public delegate void PlayerUp(Player player, char direction);
     public static event PlayerUp playerUp;
 
-    public delegate void PlayerDown(Player player);
+    public delegate void PlayerDown(Player player, char direction);
     public static event PlayerDown playerDown;
 
     private void OnEnable()

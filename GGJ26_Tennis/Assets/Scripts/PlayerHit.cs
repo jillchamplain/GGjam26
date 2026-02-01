@@ -1,20 +1,27 @@
+using NUnit.Framework;
 using UnityEngine;
-
+using System.Collections.Generic;
 public class PlayerHit : MonoBehaviour
 {
-
-    [SerializeField] BoxCollider collider;
+    [SerializeField] List<Vector3> racketPoses;
+    [SerializeField] CapsuleCollider collider;
     [SerializeField] float swingSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void OnEnable()
     {
+        PlayerMovement.playerUp += SwapRacket;
+        PlayerMovement.playerDown += SwapRacket;
+
         PlayerMovement.playerLeft += SwapRacket;
         PlayerMovement.playerRight += SwapRacket;
     }
 
     private void OnDisable()
     {
+        PlayerMovement.playerUp -= SwapRacket;
+        PlayerMovement.playerDown -= SwapRacket;
+
         PlayerMovement.playerLeft -= SwapRacket;
         PlayerMovement.playerRight -= SwapRacket;
     }
@@ -28,6 +35,8 @@ public class PlayerHit : MonoBehaviour
     {
         
     }
+
+    
 
     void SwapRacket(Player player)
     {

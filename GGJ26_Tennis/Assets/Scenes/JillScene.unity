@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3525357}
+  - component: {fileID: 3525358}
   m_Layer: 0
   m_Name: P1 Racket
   m_TagString: Untagged
@@ -149,9 +150,26 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 668224099}
-  - {fileID: 1877862894}
   m_Father: {fileID: 267401638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3525358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75dae7ab7cbca10448f7de723619f129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  racketPoses:
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  collider: {fileID: 1877862895}
+  swingSpeed: 0
 --- !u!1 &28655204
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,6 +1001,7 @@ Transform:
   m_Children:
   - {fileID: 1933628634}
   - {fileID: 1702509722}
+  - {fileID: 1877862894}
   m_Father: {fileID: 3525357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &668561520
@@ -2377,7 +2396,7 @@ GameObject:
   - component: {fileID: 1877862896}
   - component: {fileID: 1877862895}
   m_Layer: 0
-  m_Name: eer
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2391,12 +2410,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877862893}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.141, z: 0}
   m_LocalScale: {x: 1, y: 0.7012183, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3525357}
+  m_Father: {fileID: 668224099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1877862895
 CapsuleCollider:
