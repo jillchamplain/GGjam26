@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
+using System.Collections;
 public class PlayerHit : MonoBehaviour
 {
     [SerializeField] Player player;
@@ -9,6 +10,7 @@ public class PlayerHit : MonoBehaviour
     int racketPosIndex;
     [SerializeField] CapsuleCollider collider;
     [SerializeField] float swingSpeed;
+    bool canSwing = true;
     [SerializeField] KeyCode hitKey;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -38,7 +40,7 @@ public class PlayerHit : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(hitKey))
-            Swing();
+            StartCoroutine(Swing());
     }
 
     void ServeSwing()
@@ -46,24 +48,18 @@ public class PlayerHit : MonoBehaviour
         
     }
 
-    void Swing()
+    IEnumerator Swing()
     {
-        Debug.Log("swing");
-        collider.enabled = true;
-
-        //Sequence swingSequence = DOTween.Sequence();
-        //swingSequence.Append(this.transform.DOLocalRotate(new Vector3(90, 0, 0), swingSpeed/2, RotateMode.Fast));
-        //swingSequence.Join(this.transform.DOLocalMoveY(-0.3f, swingSpeed / 2));
-        //swingSequence.Append(this.transform.DOLocalRotate(new Vector3(0, 0, -70), swingSpeed / 2, RotateMode.LocalAxisAdd));
-        //swingSequence.Append(this.transform.DOLocalRotate(new Vector3(0, 0, 0), swingSpeed/2, RotateMode.Fast));
-        switch (racketPosIndex)
+        Debug.Log("Swing");
+        if (canSwing)
         {
-            case 0:
-                break;
-
-            case 2:
-                break;
+            canSwing = false;
+            collider.enabled = true;
+            yield return new WaitForSeconds(swingSpeed);
+            collider.enabled = false;
+            canSwing = true;
         }
+
     }
 
     void SwapRacket(Player player, char direction)
@@ -91,10 +87,19 @@ public class PlayerHit : MonoBehaviour
         }
     }
 
+    void ReturnSwing(GameObject ball, Vector3 lVelocity)
+    {
+        //ball.GetComponent<Rigidbody>().angularVelocity = -aVelocity;
+        ball.GetComponent<Rigidbody>().AddForce(-lVelocity, ForceMode.Impulse);
+        Debug.Log("Hit");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit");
+        
         if (other.gameObject.GetComponent<Ball>())
-            Debug.Log("Hit ball");
+        {
+            ReturnSwing(other.gameObject, other.gameObject.GetComponent<Rigidbody>().linearVelocity);
+        }
     }
 }

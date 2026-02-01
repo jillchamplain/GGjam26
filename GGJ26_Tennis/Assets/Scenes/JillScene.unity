@@ -1125,7 +1125,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.62
   m_Height: 1.83
@@ -1149,8 +1149,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 1.963}
   - {x: 1, y: 0, z: 1.963}
   collider: {fileID: 568747384}
-  swingSpeed: 1
-  hitKey: 117
+  swingSpeed: 3
+  hitKey: 113
 --- !u!1 &668561520
 GameObject:
   m_ObjectHideFlags: 0
