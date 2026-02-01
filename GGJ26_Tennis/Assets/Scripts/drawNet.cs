@@ -8,6 +8,8 @@ public class drawNet : MonoBehaviour
     [SerializeField] GameObject red;
     [SerializeField] GameObject blu;
 
+    [SerializeField] GameObject netFloat;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,14 +20,14 @@ public class drawNet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             //Ray test = player1.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             //  Debug.DrawRay(test.origin, test.direction * 100, Color.green);
             Vector3 screenPosition = Input.mousePosition;
-            screenPosition.z = 10;
+            screenPosition.z = netFloat.transform.position.z - player1.GetComponentInChildren<Camera>().transform.position.z;
             GameObject dotty = Instantiate(red);
-            dotty.transform.position = player1.GetComponent<Camera>().ScreenToWorldPoint(screenPosition);
+            dotty.transform.position = new Vector3(player1.GetComponentInChildren<Camera>().ScreenToWorldPoint(screenPosition).x, player1.GetComponentInChildren<Camera>().ScreenToWorldPoint(screenPosition).y, 10);
             Destroy(dotty, 10);
 
         }
@@ -36,9 +38,14 @@ public class drawNet : MonoBehaviour
             Vector3 screenPosition = Input.mousePosition;
             screenPosition.z = 10;
             GameObject dotty = Instantiate(blu);
-            dotty.transform.position = player2.GetComponent<Camera>().ScreenToWorldPoint(screenPosition);
+            dotty.transform.position = player2.GetComponentInChildren<Camera>().ScreenToWorldPoint(screenPosition);
             Destroy(dotty, 10);
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)){
+            
+        Debug.Log(Input.mousePosition);
         }
     }
 
