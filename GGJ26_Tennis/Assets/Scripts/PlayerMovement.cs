@@ -22,6 +22,18 @@ public class PlayerMovement : MonoBehaviour
         public KeyCode rightKey;
     }
 
+    public delegate void PlayerLeft(Player player);
+    public static event PlayerLeft playerLeft;
+
+    public delegate void PlayerRight(Player player);
+    public static event PlayerRight playerRight;
+
+    public delegate void PlayerUp(Player player);
+    public static event PlayerUp playerUp;
+
+    public delegate void PlayerDown(Player player);
+    public static event PlayerDown playerDown;
+
     private void OnEnable()
     {
         SetGameManager.playerServe += ToggleServing;
@@ -70,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0, 0));
             else
                 rb.AddForce(new Vector3(moveSpeed * Time.deltaTime, 0, 0));
+            playerLeft?.Invoke(player);
         }
 
         if(Input.GetKey(controls.downKey) && !isServing)
@@ -78,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(new Vector3(moveSpeed * Time.deltaTime, 0, 0));
             else
                 rb.AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0, 0));
+           
         }
 
         if(Input.GetKey(controls.leftKey))
@@ -85,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             if(player == Player.PLAYER_ONE)
 			    rb.AddForce(new Vector3(0,0, -moveSpeed * Time.deltaTime));
             else
-                rb.AddForce(new Vector3(0, 0, moveSpeed * Time.deltaTime));
+                rb.AddForce(new Vector3(0, 0, -moveSpeed * Time.deltaTime));
         }
 
         if(Input.GetKey(controls.rightKey))
