@@ -31,14 +31,14 @@ public class drawNet : MonoBehaviour
             Destroy(dotty, 10);
 
         }
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButton(1))
         {
             //Ray test = player1.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             //  Debug.DrawRay(test.origin, test.direction * 100, Color.green);
             Vector3 screenPosition = Input.mousePosition;
-            screenPosition.z = 10;
+            screenPosition.z = player2.GetComponentInChildren<Camera>().transform.position.z - netFloat.transform.position.z ;
             GameObject dotty = Instantiate(blu);
-            dotty.transform.position = player2.GetComponentInChildren<Camera>().ScreenToWorldPoint(screenPosition);
+            dotty.transform.position = new Vector3(player2.GetComponentInChildren<Camera>().ScreenToWorldPoint(screenPosition).x, player2.GetComponentInChildren<Camera>().ScreenToWorldPoint(screenPosition).y, 10);
             Destroy(dotty, 10);
 
         }
