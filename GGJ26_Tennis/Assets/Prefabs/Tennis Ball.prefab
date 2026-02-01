@@ -154,4 +154,28 @@ MonoBehaviour:
   serveForce: {x: 1000, y: 50, z: 1}
   servePower: 4.25
   serveTime: 1.25
+  ballBounce:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.044025
+      outSlope: 2.044025
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.075
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.0518873
+      outSlope: 2.0518873
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06666666
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   rb: {fileID: 7352370573581398620}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     static Ball inst;
-    bool ballServed = false;
+    bool isBallServed = false;
     [SerializeField] int numBounces;
     [SerializeField] Player curController;
     public void setController(Player controller) {  curController = controller; }
@@ -13,12 +13,15 @@ public class Ball : MonoBehaviour
     [SerializeField] Vector3 serveForce;
     [SerializeField] float servePower;
     [SerializeField] float serveTime;
-
+    [SerializeField] AnimationCurve ballBounce;
     [SerializeField] Rigidbody rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public delegate void BallBouncedTwice(Player player); //player courtside
     public static event BallBouncedTwice ballBouncedTwice;
+
+    public delegate void BallServed(Player player);
+    public static event BallServed ballServed;
 
     private void OnEnable()
     {
@@ -97,16 +100,16 @@ public class Ball : MonoBehaviour
 
     IEnumerator Serve()
     {
-        transform.DOJump(transform.position, servePower, 1, serveTime);
+        transform.DOLocalJump(transform.localPosition, servePower, 1, serveTime).SetEase(ballBounce);
         yield return new WaitForSeconds(serveTime);
-        if (!ballServed)
+        if (!isBallServed)
             StartCoroutine(Serve());
 
 	}
 
     public void ServeHit()
     {
-        ballServed = true;
+        isBallServed = true;
 		TogglePhysics(true);
 		transform.DOKill();
         //Debug.Log("killing tweens");
@@ -124,5 +127,6 @@ public class Ball : MonoBehaviour
 				break;
                 
         }
+        ballServed?.Invoke(curController);
 	}
 }

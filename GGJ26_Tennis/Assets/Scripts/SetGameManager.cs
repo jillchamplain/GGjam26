@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEditor;
 public class SetGameManager : MonoBehaviour
 {
     [SerializeField] int p1Wins;
@@ -14,6 +15,9 @@ public class SetGameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI p1TF;
     [SerializeField] TextMeshProUGUI p2TF;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public delegate void PlayerServe(Player player);
+    public static event PlayerServe playerServe;
 
     public delegate void PlayerWonSet(Player player);
     public static event PlayerWonSet playerWonMatch;
@@ -54,14 +58,14 @@ public class SetGameManager : MonoBehaviour
 	void InitSet()
 	{
 		phaseStart?.Invoke();
-		PlayerServe();
+		ServePhase();
 	}
 
 	void StartPhase(Player player)
     {
         phaseStart?.Invoke();
         SwapServer();
-        PlayerServe();
+        ServePhase();
     }
 
     void SwapServer()
@@ -77,7 +81,7 @@ public class SetGameManager : MonoBehaviour
         }
     }
 
-    void PlayerServe()
+    void ServePhase()
     {
         GameObject parent = p1BallSpawn;
         Player controller = Player.PLAYER_ONE;
@@ -94,7 +98,7 @@ public class SetGameManager : MonoBehaviour
                 break;
         }
         GameObject ball = Instantiate(ballPF, parent.transform.position, Quaternion.identity);
-        ball.transform.position = parent.transform.position;
+        ball.transform.parent = parent.transform;
         ball.GetComponent<Ball>().setController(controller);
         ///Debug.Log("Spawning at " + ballSpawn);
     }
