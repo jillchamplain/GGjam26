@@ -3,7 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 public class PlayerHit : MonoBehaviour
 {
-    [SerializeField] List<Vector3> racketPoses;
+    [SerializeField] Player player;
+    [SerializeField] Vector3[] racketPoses;
     [SerializeField] CapsuleCollider collider;
     [SerializeField] float swingSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,8 +39,22 @@ public class PlayerHit : MonoBehaviour
 
     
 
-    void SwapRacket(Player player)
+    void SwapRacket(Player player, char direction)
     {
-
+        if (this.player != player)
+            return;
+        switch(direction)
+        {
+            case 'u':
+            case 'd':
+                this.transform.position = racketPoses[1];
+                break;
+            case 'l':
+                this.transform.position = racketPoses[0];
+                break;
+            case 'r':
+                this.transform.position = racketPoses[2];
+                break;
+        }
     }
 }
