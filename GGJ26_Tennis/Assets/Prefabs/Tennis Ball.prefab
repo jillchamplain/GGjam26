@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numBounces: 0
   curController: 0
-  serveForce: {x: 1000, y: 50, z: 1}
+  serveForce: {x: 1, y: 50, z: -1000}
   servePower: 4.85
   serveTime: 1.25
   ballBounce:

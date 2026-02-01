@@ -118,7 +118,7 @@ public class Ball : MonoBehaviour
         switch(curController)
         {
             case Player.PLAYER_ONE:
-                Vector3 p1ServeForce = new Vector3(-serveForce.x, serveForce.y, serveForce.z);
+                Vector3 p1ServeForce = new Vector3(serveForce.x, serveForce.y, -serveForce.z);
 				//Debug.Log("using 1 " + p1ServeForce);
 				rb.AddRelativeForce(p1ServeForce, ForceMode.Force);
 				break;
