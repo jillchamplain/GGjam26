@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0, 0));
             else
                 rb.AddForce(new Vector3(moveSpeed * Time.deltaTime, 0, 0));
-            playerLeft?.Invoke(player);
+            playerUp?.Invoke(player);
         }
 
         if(Input.GetKey(controls.downKey) && !isServing)
@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(new Vector3(moveSpeed * Time.deltaTime, 0, 0));
             else
                 rb.AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0, 0));
-           
+           playerDown?.Invoke(player);
         }
 
         if(Input.GetKey(controls.leftKey))
@@ -100,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
 			    rb.AddForce(new Vector3(0,0, -moveSpeed * Time.deltaTime));
             else
                 rb.AddForce(new Vector3(0, 0, -moveSpeed * Time.deltaTime));
+            playerLeft?.Invoke(player);
         }
 
         if(Input.GetKey(controls.rightKey))
@@ -108,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
 			    rb.AddForce(new Vector3(0, 0, moveSpeed * Time.deltaTime));
             else
                 rb.AddForce(new Vector3(0, 0, -moveSpeed * Time.deltaTime));
+            playerRight?.Invoke(player);
         }
     }
 }
